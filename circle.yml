@@ -7,7 +7,7 @@ machine:
 dependencies:
   override:
      - chmod +x gradlew
-     - ./gradlew build
+     - ./gradlew clean build
      - docker info
      - docker build --rm=false -t larse514/tcfjdonors:$CIRCLE_SHA1 .
 
