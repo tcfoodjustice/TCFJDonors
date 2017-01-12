@@ -1,3 +1,6 @@
+group 'org.springframework'
+version '1.0-SNAPSHOT'
+
 buildscript {
 	ext {
 		springBootVersion = '1.4.3.RELEASE'
@@ -7,20 +10,35 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('se.transmode.gradle:gradle-docker:1.2')
+
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
 
 jar {
 	baseName = 'tcfj-donors'
-	version = '0.0.1-SNAPSHOT'
+	version =  '0.1.0'
 }
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
+task buildDocker(type: Docker, dependsOn: build) {
+	push = true
+	applicationName = jar.baseName
+	dockerfile = file('Dockerfile')
+	doFirst {
+		copy {
+			from jar
+			into stageDir
+		}
+	}
+}
 repositories {
 	mavenCentral()
 }

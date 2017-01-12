@@ -1,0 +1,33 @@
+machine:
+  python:
+    version: 2.7.11
+  services:
+    - docker
+
+dependencies:
+  override:
+     - chmod +x gradlew
+     - ./gradlew build
+     - docker info
+     - docker build --rm=false -t larse514/tcfjdonors:$CIRCLE_SHA1 .
+
+  pre:
+     - pip install awscli
+     - aws configure set default.region us-west-2
+  post:
+     - npm install newman --global
+
+test:
+  post:
+    - docker run -d -p 8080:8080 --name donorsservice larse514/tcfjdonors:$CIRCLE_SHA1; sleep 10
+    - docker ps
+    - docker port donorsservice
+    - curl --retry 10 --retry-delay 5 http://localhost:8080/greetings | grep "Hello World"
+
+deployment:
+  development:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - sh ./deploy.sh $CIRCLE_SHA1 development
+     # - newman run integration/TCFJ_Shift.postman_collection.json -e integration/TCFJ_DEV.postman_environment.json --timeout-request 5000
