@@ -42,14 +42,14 @@ public class GetAllDonorsIntegrationTests {
     }
     @Test
     public void testShiftsReturnsCorrentNumberOfDonors(){
-        ResponseEntity<List<Donors>> resp = this.testRestTemplate.exchange(url, HttpMethod.GET,null, new ParameterizedTypeReference< List < Donors >>()
+        ResponseEntity<List<Donors>> resp = this.testRestTemplate.exchange(url, HttpMethod.GET,null, new ParameterizedTypeReference< List <Donors>>()
         {
         });
         assertThat(resp.getBody().size(), is (1));
     }
     @Test
     public void testShiftsReturnsCorrenValueOfDonors(){
-        ResponseEntity<List<Donors>> resp = this.testRestTemplate.exchange(url, HttpMethod.GET,null, new ParameterizedTypeReference< List < Donors >>()
+        ResponseEntity<List<Donors>> resp = this.testRestTemplate.exchange(url, HttpMethod.GET,null, new ParameterizedTypeReference< List <Donors>>()
         {
         });
         assertThat(resp.getBody().get(0).getDonar_id(), is (1));
