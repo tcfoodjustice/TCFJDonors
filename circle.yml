@@ -23,6 +23,7 @@ test:
     - docker ps
     - docker port donorsservice
     - docker info
+    - docker-machine ip
     - curl --retry 10 --retry-delay 5 http://localhost:8080/healthCheck | grep "OK"
 
 deployment:
