@@ -44,7 +44,7 @@ make_task_def(){
 	task_template='[
 		{
 			"name": "TCFJDonorsTask",
-			"image": "larse514/tcfjdonors:${SHA1}",
+			"image": "larse514/tcfjdonors:$SHA1",
 			"essential": true,
 			"memory": 200,
 			"cpu": 10,
