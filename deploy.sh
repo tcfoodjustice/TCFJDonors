@@ -41,21 +41,21 @@ deploy_cluster() {
 }
 
 make_task_def(){
-	task_template='[
+	task_template="[
 		{
-			"name": "TCFJDonorsTask",
-			"image": "larse514/tcfjdonors:\"$SHA1\"",
-			"essential": true,
-			"memory": 200,
-			"cpu": 10,
-			"portMappings": [
+			\"name\": \"TCFJDonorsTask\",
+			\"image\": \"larse514/tcfjdonors:$SHA1\",
+			\"essential\": true,
+			\"memory\": 200,
+			\"cpu\": 10,
+			\"portMappings\": [
 				{
-					"containerPort": 8080,
-					"hostPort": 8080
+					\"containerPort\": 8080,
+					\"hostPort\": 8080
 				}
 			]
 		}
-	]'
+	]"
 	task_def=$(printf "$task_template")
 }
 
