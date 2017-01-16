@@ -13,11 +13,11 @@ configure_aws_cli(){
 
 deploy_cluster() {
 
-    family="TCFJDonors"
+    family="TCFJDonorsTask"
 
     make_task_def
     register_definition
-    if [[ $(aws ecs update-service --cluster TCFJCluster --service DonorsService --task-definition $revision | \
+    if [[ $(aws ecs update-service --cluster TCFJCluster --service donorservice --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
         return 1
@@ -26,7 +26,7 @@ deploy_cluster() {
     # wait for older revisions to disappear
     # not really necessary, but nice for demos
     for attempt in {1..300}; do
-        if stale=$(aws ecs describe-services --cluster TCFJCluster --services TCFJDonors | \
+        if stale=$(aws ecs describe-services --cluster TCFJCluster --services TCFJDonorsTask | \
                        $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition"); then
             echo "Waiting for stale deployments:"
             echo "$stale"
@@ -43,7 +43,7 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
-			"name": "TCFJDonors",
+			"name": "TCFJDonorsTask",
 			"image": "larse514/tcfjdonors:${SHA1}",
 			"essential": true,
 			"memory": 200,
