@@ -27,8 +27,13 @@ deploy_cluster() {
     # not really necessary, but nice for demos
     count=0;
     echo "$count"
-    while [[ stale=$(aws ecs describe-services --cluster TCFJCluster --services donorservice | \
-                   $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition") ]]; do
+    echo "$revision"
+    status=$(aws ecs describe-services --cluster TCFJCluster --services donorservice)
+    echo "$status"
+    definition=$JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition"
+    echo "$definition"
+
+    while [[ $count < 10 ]]; do
         echo "Waiting for stale deployments:"
         echo "$stale"
         count=$((count + 1))
