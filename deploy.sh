@@ -25,19 +25,21 @@ deploy_cluster() {
 
     # wait for older revisions to disappear
     # not really necessary, but nice for demos
-    count = 0;
+    count= 0;
+    echo "$count"
     while [[ stale=$(aws ecs describe-services --cluster TCFJCluster --services donorservice | \
                    $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition") ]]; do
         echo "Waiting for stale deployments:"
         echo "$stale"
-        count = count + 1
+        count=$((count + 1))
+        echo "$count"
         #we don't want to take too long
         if (( $count > 10 )); then
             echo "Deploy took too long, failing... =( "
             exit 1
         fi
 
-        sleep 5 
+        sleep 5
     done
 
     echo "Service update took too long."
