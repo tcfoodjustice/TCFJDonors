@@ -25,7 +25,7 @@ deploy_cluster() {
 
     # wait for older revisions to disappear
     # not really necessary, but nice for demos
-    count= 0;
+    count=0;
     echo "$count"
     while [[ stale=$(aws ecs describe-services --cluster TCFJCluster --services donorservice | \
                    $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition") ]]; do
