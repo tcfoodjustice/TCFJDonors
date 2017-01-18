@@ -28,12 +28,17 @@ deploy_cluster() {
     count=0;
     echo "$count"
     echo "$revision"
-    status=$(aws ecs describe-services --cluster TCFJCluster --services donorservice)
+    echo "$SERVICE_ARN"
+    currentTaskDefinition=$(aws ecs describe-services --cluster TCFJCluster --services donorservice --query 'services[?serviceArn=="$SERVICE_ARN"].{taskDefinition:taskDefinition}')
+    primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services donorservice
+                --query "services[?serviceArn==`"$serviceArn"`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]" --output text)
     echo "$status"
-    definition=$JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition"
-    echo "$definition"
+    echo "$primaryRunningCount"
 
-    while [[ $count < 10 ]]; do
+    while [[ $primaryRunningCount < 1 ]]; do
+        #refactor this to 
+        primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services donorservice
+                --query "services[?serviceArn==`"$serviceArn"`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]" --output text)
         echo "Waiting for stale deployments:"
         echo "$stale"
         count=$((count + 1))
@@ -44,7 +49,7 @@ deploy_cluster() {
             exit 1
         fi
 
-        sleep 5
+        sleep 10
     done
 
     echo "Service update took too long."
