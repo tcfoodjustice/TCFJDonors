@@ -41,7 +41,7 @@ deploy_cluster() {
         count=$((count + 1))
         echo "$count"
         #we don't want to take too long
-        if [ $count -eq 15 ]; then
+        if [ $count -eq 20 ]; then
             echo "Deploy took too long, failing... =( "
             exit 1
         fi
