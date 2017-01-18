@@ -34,7 +34,7 @@ deploy_cluster() {
     primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services donorservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/donorservice`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
     echo "$primaryRunningCount"
 
-    while [[ $primaryRunningCount -le 1 ]]; do
+    while [ $primaryRunningCount -le 1 ]; do
         #refactor this to
         primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services donorservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/donorservice`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
         echo "Waiting for stale deployments:"
