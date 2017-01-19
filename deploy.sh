@@ -49,6 +49,8 @@ deploy_cluster() {
 
         sleep 10
     done
+    #todo-temp fix, figure out correct thing to check from CLI
+    sleep 15
 
     echo "Service updated succesfully"
 }
