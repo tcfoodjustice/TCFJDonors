@@ -16,10 +16,6 @@ dependencies:
   post:
      - npm install newman --global
 
-database:
-  override:
-    - mysql -u ubuntu circle_test < ci/volunteers-setup.sql
-
 test:
   post:
     - docker run -d -p 8080:8080 --name donorsservice larse514/tcfjdonors:$CIRCLE_SHA1; sleep 10
