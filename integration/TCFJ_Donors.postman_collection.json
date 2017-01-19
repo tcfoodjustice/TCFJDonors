@@ -1,0 +1,32 @@
+{
+	"id": "8773cf23-1ca7-36ef-9a93-2f09e8ba5ae4",
+	"name": "TCFJ_Donors",
+	"description": "",
+	"order": [
+		"bed9a511-9bb4-7a0a-38bc-d59b7ae3f357"
+	],
+	"folders": [],
+	"timestamp": 1484795633637,
+	"owner": "837563",
+	"public": false,
+	"requests": [
+		{
+			"id": "bed9a511-9bb4-7a0a-38bc-d59b7ae3f357",
+			"headers": "",
+			"url": "{{URL}}/tcfj/v1/donors",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Donar_id exists\"] = jsonData[0].donar_id !== null ;\ntests[\"Donar_name exists\"] = jsonData[0].donar_name !== null ;\ntests[\"date_started exists\"] = jsonData[0].date_started !== null ;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1484795782196,
+			"name": "Get All Donors",
+			"description": "",
+			"collectionId": "8773cf23-1ca7-36ef-9a93-2f09e8ba5ae4",
+			"responses": []
+		}
+	]
+}
