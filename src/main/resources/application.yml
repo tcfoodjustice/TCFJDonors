@@ -2,10 +2,10 @@ spring:
   profiles : default
   datasource:
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://tcfj-rds-db.cimnc2ecuxzw.us-west-2.rds.amazonaws.com:3306/tfcj_rds_db
-      username: awsmaster
-      password: masterpwd3251
-      connectionTimeout: 10000
+      url: ${URL}
+      username: ${USER}
+      password: ${PASSWORD}
+      connectionTimeout: ${TIMEOUT}
   jpa:
       hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
