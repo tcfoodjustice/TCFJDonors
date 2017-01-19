@@ -34,12 +34,13 @@ deploy_cluster() {
     primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services donorservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/donorservice`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
     echo "$primaryRunningCount"
 
-    while [ $primaryRunningCount -le 1 ]; do
+    while [ $primaryRunningCount -lt 1 ]; do
         #refactor this to
         primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services donorservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/donorservice`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
         echo "Primary running count is: $primaryRunningCount"
         count=$((count + 1))
         echo "$count"
+
         #we don't want to take too long
         if [ $count -eq 50 ]; then
             echo "Deploy took too long, failing... =( "
