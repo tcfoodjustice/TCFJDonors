@@ -13,48 +13,50 @@ public class Donors implements Serializable {
 
     protected Donors(){}
 
+    public Donors(String donorName, String dateStarted) {
+        this.donorName = donorName;
+        this.dateStarted = dateStarted;
+    }
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer donar_id;
-    private String donar_name;
-    private String date_started;
+    @Column(name = "donor_id")
+    private Integer donorId;
+    @Column(name = "donor_name")
+    private String donorName;
+    @Column(name = "date_started")
+    private String dateStarted;
 
-    public Donors(String donar_name, String date_started) {
-        this.donar_name = donar_name;
-        this.date_started = date_started;
+    public Integer getDonorId() {
+        return donorId;
     }
 
-    public Integer getDonar_id() {
-        return donar_id;
+    public void setDonorId(Integer donorId) {
+        this.donorId = donorId;
     }
 
-    public void setDonar_id(Integer donar_id) {
-        this.donar_id = donar_id;
+    public String getDonorName() {
+        return donorName;
     }
 
-    public String getDonar_name() {
-        return donar_name;
+    public void setDonorName(String donorName) {
+        this.donorName = donorName;
     }
 
-    public void setDonar_name(String donar_name) {
-        this.donar_name = donar_name;
+    public String getDateStarted() {
+        return dateStarted;
     }
 
-    public String getDate_started() {
-        return date_started;
-    }
-
-    public void setDate_started(String date_started) {
-        this.date_started = date_started;
+    public void setDateStarted(String dateStarted) {
+        this.dateStarted = dateStarted;
     }
 
     @Override
     public String toString() {
         return "Donors{" +
-                "donar_id=" + donar_id +
-                ", donar_name='" + donar_name + '\'' +
-                ", date_started='" + date_started + '\'' +
+                "donorId=" + donorId +
+                ", donorName='" + donorName + '\'' +
+                ", dateStarted='" + dateStarted + '\'' +
                 '}';
     }
 }

@@ -40,9 +40,9 @@ public class DonorsTest {
     @Test
     public void testDonorsEntitySetup(){
         Donors donors = repository.findOne(id);
-        assertThat(donors.getDonar_id(),is(id));
-        assertThat(donors.getDonar_name(),is(donorName));
-        assertThat(donors.getDate_started(), is(dateStarted));
+        assertThat(donors.getDonorId(),is(id));
+        assertThat(donors.getDonorName(),is(donorName));
+        assertThat(donors.getDateStarted(), is(dateStarted));
     }
 
     //uncomment this when writing insert

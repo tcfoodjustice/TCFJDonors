@@ -52,9 +52,9 @@ public class GetAllDonorsIntegrationTests {
         ResponseEntity<List<Donors>> resp = this.testRestTemplate.exchange(url, HttpMethod.GET,null, new ParameterizedTypeReference< List <Donors>>()
         {
         });
-        assertThat(resp.getBody().get(0).getDonar_id(), is (1));
-        assertThat(resp.getBody().get(0).getDonar_name(), is (donorName));
-        assertThat(resp.getBody().get(0).getDate_started(), is (dateStarted));
+        assertThat(resp.getBody().get(0).getDonorId(), is (1));
+        assertThat(resp.getBody().get(0).getDonorName(), is (donorName));
+        assertThat(resp.getBody().get(0).getDateStarted(), is (dateStarted));
 
     }
 }

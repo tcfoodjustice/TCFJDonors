@@ -46,7 +46,7 @@ public class DonorControllerTest {
     public void setup(){
         donors = new ArrayList<>();
         Donors donor = new Donors(donorName, dateStarted);
-        donor.setDonar_id(id);
+        donor.setDonorId(id);
         donors.add(donor);
         Donors[] array = {};
         //this feels a bit hacky
@@ -73,7 +73,7 @@ public class DonorControllerTest {
         given(repository.findAll()).willReturn(iterable);
         this.mvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].donar_name", is(donorName)));
+                .andExpect(jsonPath("$[0].donorName", is(donorName)));
 
     }
     @Test
@@ -82,7 +82,7 @@ public class DonorControllerTest {
         given(repository.findAll()).willReturn(iterable);
         this.mvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].date_started", is(dateStarted)));
+                .andExpect(jsonPath("$[0].dateStarted", is(dateStarted)));
 
     }
     @Test
@@ -91,7 +91,7 @@ public class DonorControllerTest {
         given(repository.findAll()).willReturn(iterable);
         this.mvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].donar_id", is(id)));
+                .andExpect(jsonPath("$[0].donorId", is(id)));
 
     }
 }
